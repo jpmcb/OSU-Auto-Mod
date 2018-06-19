@@ -1,5 +1,4 @@
 # OSU-Auto-Mod
-#### Project Owner - John McBride OSU Slack: @John McBride Email: mcbridej@oregonstate.edu
 ___
 The Auto Mod bot implementation for the OSU Online CS Post bacc slack community
 
@@ -18,3 +17,8 @@ All contributors
 ___
 Join the #Auto_Mod channel on the OSU Online CS Post Bacc slack found at https://osu-cs.slack.com/
 Note: You MUST have an @oregonstate.edu email to sign up for this slack
+
+#### Current Project Owners
+John McBride 
+OSU Slack: `@John McBride`
+Email: mcbridej@oregonstate.edu

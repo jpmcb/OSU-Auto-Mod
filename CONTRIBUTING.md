@@ -66,10 +66,12 @@ The philosophy of this open source project is to provide tools for the OSU Onlin
 
 ### Process for suggesting a feature.
 
-> If you find yourself wishing for a feature that doesn't exist, you are probably not alone. There are bound to be others out there with similar needs. Open an issue on our issues list on GitHub which describes the feature you would like to see, why you need it, and how it should work.
+If you find yourself wishing for a feature that doesn't exist, you are probably not alone. There are bound to be others out there with similar needs. Open an issue on our issues list on GitHub which describes the feature you would like to see, why you need it, and how it should work.
 
 # Code review process
 
 When you make a pull request, request one of the project owners to review your code. If the code review passes, your request will be merged. Any changes that are request from the reviewing project owner should be made to the same branch and pushed to the same Pull Request. Once changes are made, request a code review again. 
 
 As with anything, do not hesitate to seek help or advice in the #Auto_Mod slack channel! Looking forward to your contributions! 
+
+(Adopted from the [Contributing-template](https://github.com/nayafia/contributing-template/blob/master/CONTRIBUTING-template.md) open source project)
