@@ -22,3 +22,7 @@ Note: You MUST have an @oregonstate.edu email to sign up for this slack
 John McBride 
 OSU Slack: `@John McBride`
 Email: mcbridej@oregonstate.edu
+
+Hunter Schallhorn
+OSU Slack: `@schallhh`
+Email: schallhh@oregonstate.edu
