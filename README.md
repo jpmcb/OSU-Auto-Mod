@@ -7,7 +7,7 @@ Currently, the Auto Mod bot on the OSU Online Post Bacc CS slack dosen't do much
 
 ## Contribution guidelines
 ___
-Please refer to the CONTRIBUTING.md file for the guidelines1
+Please refer to the CONTRIBUTING.md file for the guidelines!
 
 ## Community guidelines
 ___
