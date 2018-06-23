@@ -9,6 +9,45 @@ Currently, the Auto Mod bot on the OSU Online Post Bacc CS slack doesn't do much
 ___
 Please refer to the CONTRIBUTING.md file for the guidelines!
 
+## Getting started
+___
+There are several steps required to get the slack bot up and running for local development (if you think there is a way to optimize this, submit an issue!)
+
+##### Development Slack
+1. Create an account on the development slack instance - this can be found [here](osu-auto-mod.slack.com)
+2. Send a message to @John McBride for admin access & collaborative permissions to the development slack
+
+##### Node JS dependencies & Local Development
+1. Install ngrok globally. A nice tuorial can be found [here](https://api.slack.com/tutorials/tunneling-with-ngrok) on how ngrok works and why it makes local development of slack apps possible
+2. Pull this github repository code
+3. Run `npm install` to download the project dependencies
+
+##### Environment Variables
+1. Once you are on the development slack and you have admin access, enter the admin pannel and go to the Slack API webpage. It can also be found [here](https://api.slack.com) - Enter the page for the Auto Mod test bot
+2. Create a NEW file in the root of your project files named `.env` exactly
+3. Under the `OAuth & Permissions` tab, copy the `Bot User OAuth Access Token`
+4. Use this token as the `SLACK_TOKEN` environment variable in `.env`
+5. Under the `Basic Information` tab, copy the `Verification Token`
+6. Use this token as the `SLACK_VERIFICATION_TOKEN` environment variable in `.env`
+7. Specify a `PORT` environment variable (I usually do 8080)
+
+NOTE: Chekc out `.env.sample` for how this environment variable file should look!
+
+##### Run the app locally!
+1. Start the app with `npm start`
+2. In another terminal window, start ngrok on the same local port you specified in `.env` like this: `ngrok http 8080`  -  This allows your local instance of the node microservice to be tunneled through the internet to the slack API!
+
+##### Configure the Slack API
+1. Back on the Slack API app web page, navigate to the `Events Subscriptions`
+2. Under the Request URL, change the URL to `http:// xxx.ngrok.io/events` (see your ngrok instance for the specifc tunnel that your node instance can be reached on)
+3. Ensure that the app is verified. You're all good to go!!
+
+NOTE: If two people are attempting to develop at the same time, on the same development slack workspace, this process will NOT work. If you run into these issues,
+_*you may need to create your own development slack workspace!*_ This would require a few additionally steps, so head over to #auto_mod and let the projects owners know if there are slack ngrok collision issues! 
+
+##### Local development roadmap
+In the future, all contributors will be required to have their own development slack workspaces. As the project grows, we will begin to use the OSU-Auto-Mod slack as a "production test" envrionment before pushing up changes to the bot in the actual "production" enviroment (aka, the OSU Post Bacc slack).
+
 ## Community guidelines
 ___
 All contributors must follow the OSU student code of conduct 
