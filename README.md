@@ -18,7 +18,7 @@ There are several steps required to get the slack bot up and running for local d
 2. Send a message to @John McBride for admin access & collaborative permissions to the development slack
 
 ##### Node JS dependencies & Local Development
-1. Install ngrok globally. A nice tuorial can be found [here](https://api.slack.com/tutorials/tunneling-with-ngrok) on how ngrok works and why it makes local development of slack apps possible
+1. Install ngrok globally. A nice tutorial can be found [here](https://api.slack.com/tutorials/tunneling-with-ngrok) on how ngrok works and why it makes local development of slack apps possible
 2. Pull this github repository code
 3. Run `npm install` to download the project dependencies
 
@@ -31,7 +31,7 @@ There are several steps required to get the slack bot up and running for local d
 6. Use this token as the `SLACK_VERIFICATION_TOKEN` environment variable in `.env`
 7. Specify a `PORT` environment variable (I usually do 8080)
 
-NOTE: Chekc out `.env.sample` for how this environment variable file should look!
+NOTE: Check out `.env.sample` for how this environment variable file should look!
 
 ##### Run the app locally!
 1. Start the app with `npm start`
@@ -39,7 +39,7 @@ NOTE: Chekc out `.env.sample` for how this environment variable file should look
 
 ##### Configure the Slack API
 1. Back on the Slack API app web page, navigate to the `Events Subscriptions`
-2. Under the Request URL, change the URL to `http:// xxx.ngrok.io/events` (see your ngrok instance for the specifc tunnel that your node instance can be reached on)
+2. Under the Request URL, change the URL to `http:// xxx.ngrok.io/events` (see your ngrok instance for the specific tunnel that your node instance can be reached on)
 3. Ensure that the app is verified. You're all good to go!!
 
 NOTE: If two people are attempting to develop at the same time, on the same development slack workspace, this process will NOT work. If you run into these issues,
