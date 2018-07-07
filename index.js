@@ -44,16 +44,15 @@ app.post('/events', (req, res) => {
     case 'event_callback': {
       if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
         const event = req.body.event;
-        console.log(event);
         switch(event.type){
           case 'channel_created': {
-            console.log("Made a channel!");
             events.newChannel(event.channel.name);
             break;
           } case 'message': {
-            console.log("Got message:");
-            events.anonReport(event.text);
-            events.anonResponse(event.user);
+            if(event.text != "Thanks for letting me know! I'll tell the admins anonymously.") {
+              events.anonReport(event.text);
+              events.anonResponse(event.user);
+            }
             break;
           } default: { res.sendStatus(500); }
         } 

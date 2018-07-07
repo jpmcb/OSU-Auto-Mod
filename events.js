@@ -20,7 +20,7 @@ const newChannel = (name) => {
   newChannelMessage.channel = 'admin';
   const params = qs.stringify(newChannelMessage);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-  sendMessage.then(postResult);
+  sendMessage.then(console.log('New channel created successfully!'));
 }
 
 
@@ -39,7 +39,7 @@ const anonReport = (message) => {
   adminMessage.channel = 'admin';
   const params = qs.stringify(adminMessage);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-  sendMessage.then(postResult);
+  sendMessage.then(console.log('Posted a anon message to the Admin channel!'));
 }
 
 // --- Respond back to Anon user ---
@@ -57,7 +57,7 @@ const anonResponse = (fromUser) => {
   message.channel = fromUser;
   const params = qs.stringify(message);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-  sendMessage.then(postResult);
+  sendMessage.then(console.log('Responded to the anon user!'));
 }
 
 // Make the different functions available to the API
