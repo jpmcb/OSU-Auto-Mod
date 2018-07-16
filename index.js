@@ -1,3 +1,12 @@
+/**
+ * OSU - Auto Mod
+ * Source Repo: https://github.com/jpmcb/OSU-Auto-Mod
+ * @author - John McBride mcbridej@oregonstate.edu
+ * @description - The OSU Auto Moderator apart of the OSU Online CS Slack community.
+ * The purpose of this slack bot is to give several utilities to the Admins and
+ * enable a more inclusive, open community. Please see the README.md in the Github repo.
+ */
+
 require('dotenv').config();
 
 const express = require('express');
