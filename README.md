@@ -14,7 +14,7 @@ ___
 There are several steps required to get the slack bot up and running for local development (if you think there is a way to optimize this, submit an issue!)
 
 ##### Development Slack
-1. Create an account on the development slack instance - this can be found [here](osu-auto-mod.slack.com)
+1. Create an account on the development slack instance - this can be found [here](https://osu-auto-mod.slack.com)
 2. Send a message to @John McBride for admin access & collaborative permissions to the development slack
 
 ##### Node JS dependencies & Local Development
