@@ -4,6 +4,15 @@ const axios = require('axios');
 const postResult = result => console.log(result.data);
 
 
+const onboardingMessages = [
+  "Welcome to the Oregon State Computer Science slack community! This space is intended to fill some of the gaps in student interactions that an online degree tends to be missing. Here you can ask questions about the program, share resources with your classmates, and connect with other students in the program!",
+  "Conversations in slack are broken up into channels with a specific purpose. Class channels (like #161 and #225) are reserved for topics that relate to that class and that class only. #general is reserved for conversations about the program, OSU, and computer science as a whole. Conversations that overwhelm these channels that are not on topic should be moved to an appropriate channel. All other channels are more casual. Need pointers on interviews? Try #internships or #jobs. Have a photo of your puppy or pizza? Try #pets or #food. Looking for hot singles in your area local classmates? Search for a location specific channel like #seattle or #sandiego.",
+  "There are a few rules to participating in this community. You can find those here: <link to read-only version of CoC>. Please keep the OSU Code of student Conduct in mind as well: https://studentlife.oregonstate.edu/sites/studentlife.oregonstate.edu/files/code-of-conduct-uploadedmay2018.pdf",
+  "This community is not run by the school or any of its administrators. While you will see some of your professors and TAs hanging around to answer questions and participate in the community, it is 100% run by students and alumni who found slack to be an invaluable resource and are willing to work to make it better. These OKish people are:\n  <@U6K44NQF8>\n  <@U04DSF0MA>\n  <@U06KBVB47>\n  <@U6YBHFPT9>\n  <@U3QKDDW81>\n  <@U59T7NZF0>\n  <@U0PJMG936>\n  <@U05335RQK>\n  <@U0M0GRWMB>\n  <@U57P99CTF>\n  <@U182PFTQD>\n  <@U2DKSFATT>\n  <@U0HKFPZ54>\n  If you are having an issue with another user, an off topic conversation has taken over a class channel, or otherwise need admin intervention, please feel free to message any of them at any time.",
+  "If you need to anonymously contact an admin, you can send a Direct Message to me! All messaging information is scrubbed away and your message will be directly forwarded to the Admin channel. Don't believe me? Check out the code here: https://github.com/jpmcb/OSU-Auto-Mod. This should generally be reserved for reporting community guideline violations or anything else that would require immediate moderator attention that users don't feel comfortable having their name associated with.",
+  "Above all else, remember that this is a community for students to connect and share resources, so don't be a jerk and have fun!"
+];
+
 // --- Tell the admin's there's a new channel! ---
 // Description: Tells the admins when a new channel is created
 // Input: Name of the new channel from the event's API
@@ -60,9 +69,31 @@ const anonResponse = (fromUser) => {
   sendMessage.then(console.log('Responded to the anon user!'));
 }
 
+// --- Say hello to a new user ---
+// Description: Sends all the onboarding messages to the new user
+// Input: User's internal ID from the Message API
+// Output: Bot will send onboarding messages to the user
+const onboard = (newUser) => {
+  let message = {
+    token: process.env.SLACK_TOKEN,
+    as_user: true,
+    link_names: true,
+    channel: newUser
+  };
+
+  onboardingMessages.forEach(messageText => {
+    message.text = messageText;
+
+    const params = qs.stringify(message);
+    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+    sendMessage.then(postResult);
+  });
+};
+
 // Make the different functions available to the API
 module.exports = { 
   newChannel: newChannel,
   anonReport: anonReport,
-  anonResponse: anonResponse
+  anonResponse: anonResponse,
+  onboard: onboard
 };
