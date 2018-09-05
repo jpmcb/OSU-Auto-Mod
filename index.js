@@ -57,6 +57,9 @@ app.post('/events', (req, res) => {
           case 'channel_created': {
             events.newChannel(event.channel.name);
             break;
+          } case 'team_join': {
+            events.onboard(event.user.id);
+            break;
           } case 'message': {
             if(event.text != "Thanks for letting me know! I'll tell the admins anonymously.") {
               events.anonReport(event.text);
