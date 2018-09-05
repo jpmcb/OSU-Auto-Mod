@@ -61,7 +61,7 @@ app.post('/events', (req, res) => {
             events.onboard(event.user.id);
             break;
           } case 'message': {
-            if(event.user != process.env.AUTO_MOD) {
+            if(event.user != process.env.AUTO_MOD && event.subtype != 'message_changed') {
               events.anonReport(event.text);
               events.anonResponse(event.user);
             }
