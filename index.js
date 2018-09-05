@@ -61,7 +61,7 @@ app.post('/events', (req, res) => {
             events.onboard(event.user.id);
             break;
           } case 'message': {
-            if(event.text != "Thanks for letting me know! I'll tell the admins anonymously.") {
+            if(event.user != process.env.AUTO_MOD) {
               events.anonReport(event.text);
               events.anonResponse(event.user);
             }
