@@ -53,6 +53,9 @@ app.post('/events', (req, res) => {
     case 'event_callback': {
       if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
         const event = req.body.event;
+
+        console.log(event);
+
         switch(event.type){
           case 'channel_created': {
             events.newChannel(event.channel.name);
@@ -61,7 +64,7 @@ app.post('/events', (req, res) => {
             events.onboard(event.user.id);
             break;
           } case 'message': {
-            if(event.user != process.env.AUTO_MOD) {
+            if(event.user != process.env.AUTO_MOD && event.subtype != 'message_changed') {
               events.anonReport(event.text);
               events.anonResponse(event.user);
             }
