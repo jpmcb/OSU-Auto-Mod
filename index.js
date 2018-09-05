@@ -53,9 +53,6 @@ app.post('/events', (req, res) => {
     case 'event_callback': {
       if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
         const event = req.body.event;
-
-        console.log(event);
-
         switch(event.type){
           case 'channel_created': {
             events.newChannel(event.channel.name);
