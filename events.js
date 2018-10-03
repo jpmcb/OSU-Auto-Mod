@@ -80,10 +80,43 @@ const onboard = (newUser) => {
   sendMessage.then(console.log('Sent onboarding message!'));
 };
 
+// ----- Emoji is added or changed -----
+// Description: Handles any and all emoji related subscribed events. 
+// Currently handles new emojis added (in addition to new aliases added)
+// and emoji's being deleted
+const emoji = (event) => {
+  let emojiMessage = {
+    token: process.env.SLACK_TOKEN,
+    as_user: true,
+    link_names: true
+  };
+  
+  switch(event.subtype) {
+    case("add"): {
+      emojiMessage.text = "A new Emoji was uploaded! --> :" + event.name + ":";
+      break;
+    } case("remove"):{
+      emojiMessage.text = "An Emoji was deleted! --> :" + event.names + ":";
+      break;
+    } default: {
+      // If an undefined subtype is present (currently in the slack API, there are only two),
+      // then return without sending a message to the admins
+      return;
+    }
+  }
+
+  // Send message to the admin channel
+  emojiMessage.channel = 'admin';
+  const params = qs.stringify(emojiMessage);
+  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+  sendMessage.then(console.log('Emoji message sent successfully!'));
+}
+
 // Make the different functions available to the API
 module.exports = { 
   newChannel: newChannel,
   anonReport: anonReport,
   anonResponse: anonResponse,
-  onboard: onboard
+  onboard: onboard,
+  emoji: emoji
 };

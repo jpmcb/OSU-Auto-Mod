@@ -52,6 +52,7 @@ app.post('/events', (req, res) => {
     }
     case 'event_callback': {
       if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+        res.sendStatus(200);
         const event = req.body.event;
         switch(event.type){
           case 'channel_created': {
@@ -66,9 +67,11 @@ app.post('/events', (req, res) => {
               events.anonResponse(event.user);
             }
             break;
+          } case 'emoji_changed': {
+            events.emoji(event);
+            break;
           } default: { res.sendStatus(500); }
         } 
-        res.sendStatus(200);
       } else { res.sendStatus(500); }
       break;
     }
