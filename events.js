@@ -40,8 +40,12 @@ const anonReport = (message) => {
 
   adminMessage.channel = 'admin';
   const params = qs.stringify(adminMessage);
-  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-  sendMessage.then(console.log('Posted a anon message to the Admin channel!'));
+  
+  // Filter butts ... but don't let the user know! 
+  if(!message.includes("butts") || !message.includes("butt")) {
+    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+    sendMessage.then(console.log('Posted a anon message to the Admin channel!'));
+  }
 }
 
 // --- Respond back to Anon user ---
