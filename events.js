@@ -95,12 +95,12 @@ let scheduledJobs = []
 // Run the cron job every day at 3:30am. Will process the requests array,
 // and reset the cache for the next day
 let schedule = cron.scheduleJob('* 30 3 * * *', function(){
-  console.log('Starting cron job: ', scheduledJobs);
+  console.log('Starting cron job');
   scheduledJobs.map(job => axios.post('https://slack.com/api/chat.postMessage', job))
   Promise.all(scheduledJobs)
   .then(() => {
     scheduledJobs = []
-    console.log('Jobs array cleared: ', scheduledJobs);
+    console.log('Cron job all done!');
   });
 });
 
@@ -130,7 +130,7 @@ const emoji = (event) => {
   const params = qs.stringify(emojiMessage);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
   sendMessage.then(() => {
-    console.log('Emoji message sent successfully!');
+    console.log('Emoji message sent to admins successfully!');
 
     // Update the job schedule array
     emojiMessage.channel = 'emoji_meta';
