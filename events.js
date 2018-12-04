@@ -1,5 +1,6 @@
 const qs = require('querystring');
 const axios = require('axios');
+const cron = require('node-schedule');
 
 const postResult = result => console.log(result.data);
 
@@ -88,6 +89,21 @@ const onboard = (newUser) => {
 // Description: Handles any and all emoji related subscribed events. 
 // Currently handles new emojis added (in addition to new aliases added)
 // and emoji's being deleted
+
+let scheduledJobs = []
+
+// Run the cron job every day at 3:30am. Will process the requests array,
+// and reset the cache for the next day
+let schedule = cron.scheduleJob('* 30 3 * * *', function(){
+  console.log('Starting cron job');
+  scheduledJobs.map(job => axios.post('https://slack.com/api/chat.postMessage', job))
+  Promise.all(scheduledJobs)
+  .then(() => {
+    scheduledJobs = []
+    console.log('Cron job all done!');
+  });
+});
+
 const emoji = (event) => {
   let emojiMessage = {
     token: process.env.SLACK_TOKEN,
@@ -113,7 +129,15 @@ const emoji = (event) => {
   emojiMessage.channel = 'admin';
   const params = qs.stringify(emojiMessage);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-  sendMessage.then(console.log('Emoji message sent successfully!'));
+  sendMessage.then(() => {
+    console.log('Emoji message sent to admins successfully!');
+
+    // Update the job schedule array
+    emojiMessage.channel = 'emoji_meta';
+    const newJob = qs.stringify(emojiMessage);
+
+    scheduledJobs.push(newJob);
+  });
 }
 
 // Make the different functions available to the API
