@@ -38,6 +38,22 @@ app.post('/', (req, res) => {
   }
 })
 
+// Handles the emoji release POST from the /release-emojis slash command
+app.post('/slash', (req, res) => {
+  
+  // Only admins in the admin channel can release emojis
+  if(req.body.channel_name == 'admin'){
+    res.status(200).json({
+      text: "Ok! I've released the current emoji meta to #emoji_meta"
+    });
+    events.releaseEmojis();
+  } else {
+    res.status(200).json({
+      text: "Sorry! You aren't authorized to do that!"
+    });
+  }
+});
+
 /* ***************************
  * Endpoint to receive events from Slack's Events API.
  * Handles:
