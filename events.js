@@ -1,6 +1,5 @@
 const qs = require('querystring');
 const axios = require('axios');
-const cron = require('node-schedule');
 
 const postResult = result => console.log(result.data);
 
@@ -94,15 +93,15 @@ let scheduledJobs = []
 
 // Run the cron job every day at 3:30am. Will process the requests array,
 // and reset the cache for the next day
-let schedule = cron.scheduleJob('* 30 3 * * *', function(){
-  console.log('Starting cron job');
+const releaseEmojis = () => {
+  console.log('Releasing emojis');
   scheduledJobs.map(job => axios.post('https://slack.com/api/chat.postMessage', job))
   Promise.all(scheduledJobs)
   .then(() => {
     scheduledJobs = []
-    console.log('Cron job all done!');
+    console.log('Jobs all done!');
   });
-});
+};
 
 const emoji = (event) => {
   let emojiMessage = {
@@ -146,5 +145,6 @@ module.exports = {
   anonReport: anonReport,
   anonResponse: anonResponse,
   onboard: onboard,
+  releaseEmojis: releaseEmojis,
   emoji: emoji
 };
