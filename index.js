@@ -42,7 +42,7 @@ app.post('/', (req, res) => {
 app.post('/slash', (req, res) => {
   
   // Only admins in the admin channel can release emojis
-  if(req.body.channel_id == process.env.ADMINS){
+  if(req.body.channel_id == process.env.ADMINS || req.body.channel_id == process.env.ADMINS_TEST){
     res.status(200).json({
       text: "Ok! I've released the current emoji meta to #emoji_meta"
     });

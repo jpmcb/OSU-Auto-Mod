@@ -1,5 +1,6 @@
 const qs = require('querystring');
 const axios = require('axios');
+const schedule = require('node-schedule');
 
 const postResult = result => console.log(result.data);
 
@@ -138,6 +139,15 @@ const emoji = (event) => {
     scheduledJobs.push(newJob);
   });
 }
+
+// Node cron job to execute late at night in the instance that 
+// there are un-worked jobs in the buffer
+const job = schedule.scheduleJob('*/2 * * * *', () => {
+  if(scheduledJobs.length != 0) {
+    console.log("Releasing emojis from scheduler!")
+    releaseEmojis()
+  }
+});
 
 // Make the different functions available to the API
 module.exports = { 
