@@ -2,6 +2,8 @@ const qs = require('querystring');
 const axios = require('axios');
 const schedule = require('node-schedule');
 
+const utils = require('./utils');
+
 const postResult = result => console.log(result.data);
 
 
@@ -25,6 +27,65 @@ const newChannel = (name) => {
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
   sendMessage.then(console.log('New channel created successfully!'));
 }
+
+
+// --- Tell a channel it is a duplicate channel! ---
+// Description: Directs users in a channel to the actual class channel
+// Input: Name of the duplicate channel from the event's API
+// Output: Posts a new message from the bot to the duplicate channel
+
+const notifyUserDuplicateChannel = (channelName) => {
+  const realChannel = utils.normalizeChannelName(channelName);
+
+  const duplicateChannelMessage = {
+    token: process.env.SLACK_TOKEN,
+    as_user: true,
+    link_names: true,
+    text: `The channel for CS${realChannel} can be found at #${realChannel}. This channel will be automatically archived.`,
+    channel: channelName
+  };
+
+  const params = qs.stringify(duplicateChannelMessage);
+  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+  sendMessage.then(console.log('User notified of duplicate channel!'));
+}
+
+
+// --- Tell a the admins a duplicate channel has be archived! ---
+// Description: Notifies the admins that a duplicate channel has been found and dealt with
+// Input: Name of the duplicate channel from the event's API
+// Output: Posts a new message from the bot to the admin channel
+
+const notifyUserDuplicateChannel = (channelName) => {
+  const duplicateChannelMessage = {
+    token: process.env.SLACK_TOKEN,
+    as_user: true,
+    link_names: true,
+    text: `:redsiren: :handcuffs: :female-judge: :banhammer: The duplicate channel ${channelName} has been discovered and automatically archived.`,
+    channel: 'admin'
+  };
+
+  const params = qs.stringify(duplicateChannelMessage);
+  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+  sendMessage.then(console.log('Admins notified of duplicate channel closure!'));
+}
+
+
+// --- Archive a channel ---
+// Description: Archives the provided channel
+// Input: The channel to archive
+
+const archiveChannel = (channelName) => {
+  const duplicateChannelMessage = {
+    token: process.env.SLACK_TOKEN,
+    channel: channelName
+  };
+
+  const params = qs.stringify(duplicateChannelMessage);
+  const sendMessage = axios.post('https://slack.com/api/channels.archive', params);
+  sendMessage.then(console.log('Channel has been archived!'));
+}
+
 
 
 // --- Report something to the admins ---
@@ -152,6 +213,9 @@ const job = schedule.scheduleJob('*/2 * * * *', () => {
 // Make the different functions available to the API
 module.exports = { 
   newChannel: newChannel,
+  notifyUserDuplicateChannel: notifyUserDuplicateChannel,
+  notifyAdminsDuplicateChannel: notifyAdminsDuplicateChannel,
+  archiveChannel: archiveChannel,
   anonReport: anonReport,
   anonResponse: anonResponse,
   onboard: onboard,

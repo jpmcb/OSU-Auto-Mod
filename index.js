@@ -12,6 +12,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const events = require('./events');
+const utils = require('./utils');
 
 const app = express();
 
@@ -73,6 +74,11 @@ app.post('/events', (req, res) => {
         switch(event.type){
           case 'channel_created': {
             events.newChannel(event.channel.name);
+            if (utils.isDuplicateChannel(event.channel.name)){
+              events.notifyUserDuplicateChannel(event.channel.name);
+              events.archiveChannel(event.channel.name);
+              events.notifyAdminsDuplicateChannel(event.channel.name);
+            }
             break;
           } case 'team_join': {
             events.onboard(event.user.id);
