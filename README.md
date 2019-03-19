@@ -30,6 +30,12 @@ There are several steps required to get the slack bot up and running for local d
 5. Under the `Basic Information` tab, copy the `Verification Token`
 6. Use this token as the `SLACK_VERIFICATION_TOKEN` environment variable in `.env`
 7. Specify a `PORT` environment variable (I usually do 8080)
+8. You must also include the `AUTO_MOD` user code. This can be somewhat complicated as it requires you to interact with the Slack API through Curl with your token. [Here](https://api.slack.com/methods/users.list) is the `user.list` method that can be used with Curl to find the bot users ID 
+9. Additionally, you will need to include the `ADMINS` channel. This can also be found through the API with the `channels.list` method. Can be found [here](https://api.slack.com/methods/channels.list). 
+10. Further, you must include the `SLACK_TOKEN_TEST`, `SLACK_VERIFICATION_TOKEN_TEST`, `AUTO_MOD_TEST`, and `ADMINS_TEST` env variables. If you do not plan to use this in a seperate testing environment, simply enter an empty string. Refere to the `.env.sample` file for a reference environment.
+11. Finally, you must include a `ENV` variable. This must ether be `TEST` or `PROD`. 
+
+(in the future we hope to automate this further to make testing and getting set up easier for you.)
 
 NOTE: Check out `.env.sample` for how this environment variable file should look!
 

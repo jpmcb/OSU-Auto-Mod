@@ -79,9 +79,7 @@ app.post('/events', (req, res) => {
             events.onboard(event.user.id);
             break;
           } case 'message': {
-            console.log('User: ', event.user);
-            console.log('Text: ', event.text)
-            if((event.user != process.env.AUTO_MOD || event.user != process.env.AUTO_MOD_TEST) && event.subtype != 'message_changed') {
+            if((event.user != process.env.AUTO_MOD && event.user != process.env.AUTO_MOD_TEST) && event.subtype != 'message_changed') {
               events.anonReport(event.text);
               events.anonResponse(event.user);
             }
