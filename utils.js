@@ -33,7 +33,12 @@ const CLASS_CHANNELS = [
   "496"
 ]
 
-export const isDuplicateChannel = (channelName) => CLASS_CHANNELS.includes(normalizeChannelName(channelName));
+const isDuplicateChannel = (channelName) => CLASS_CHANNELS.includes(normalizeChannelName(channelName));
 
 // Matches CS..., CS_..., or any lowercase variations there of
-export const normalizeChannelName = (channelName) => channelName.replace(/cs_?/i, '');
+const normalizeChannelName = (channelName) => channelName.replace(/cs_?/i, '');
+
+module.exports = {
+  isDuplicateChannel: isDuplicateChannel,
+  normalizeChannelName: normalizeChannelName
+};

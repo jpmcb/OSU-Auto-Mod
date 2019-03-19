@@ -56,7 +56,7 @@ const notifyUserDuplicateChannel = (channelName) => {
 // Input: Name of the duplicate channel from the event's API
 // Output: Posts a new message from the bot to the admin channel
 
-const notifyUserDuplicateChannel = (channelName) => {
+const notifyAdminsDuplicateChannel = (channelName) => {
   const duplicateChannelMessage = {
     token: process.env.SLACK_TOKEN,
     as_user: true,
