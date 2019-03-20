@@ -39,7 +39,7 @@ const notifyUserDuplicateChannel = (channelName) => {
   const realChannel = utils.normalizeChannelName(channelName);
 
   const duplicateChannelMessage = {
-    token: process.env.SLACK_TOKEN,
+    token: env == 'TEST' ? process.env.SLACK_TOKEN_TEST : process.env.SLACK_TOKEN,
     as_user: true,
     link_names: true,
     text: `The channel for CS${realChannel} can be found at #${realChannel}. This channel will be automatically archived.`,
@@ -59,7 +59,7 @@ const notifyUserDuplicateChannel = (channelName) => {
 
 const notifyAdminsDuplicateChannel = (channelName) => {
   const duplicateChannelMessage = {
-    token: process.env.SLACK_TOKEN,
+    token: env == 'TEST' ? process.env.SLACK_TOKEN_TEST : process.env.SLACK_TOKEN,
     as_user: true,
     link_names: true,
     text: `:redsiren: :handcuffs: :female-judge: :banhammer: The duplicate channel ${channelName} has been discovered and automatically archived.`,
@@ -78,7 +78,7 @@ const notifyAdminsDuplicateChannel = (channelName) => {
 
 const archiveChannel = (channelName) => {
   const duplicateChannelMessage = {
-    token: process.env.SLACK_TOKEN,
+    token: env == 'TEST' ? process.env.SLACK_TOKEN_TEST : process.env.SLACK_TOKEN,
     channel: channelName
   };
 
