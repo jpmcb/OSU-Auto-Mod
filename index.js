@@ -68,7 +68,8 @@ app.post('/events', (req, res) => {
       break;
     }
     case 'event_callback': {
-      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+      if ((process.env.ENV === 'PROD' && req.body.token === process.env.SLACK_VERIFICATION_TOKEN) ||
+          (process.env.ENV === 'TEST' && req.body.token === process.env.SLACK_VERIFICATION_TOKEN_TEST)) {
         res.sendStatus(200);
         const event = req.body.event;
         switch(event.type){
@@ -84,7 +85,7 @@ app.post('/events', (req, res) => {
             events.onboard(event.user.id);
             break;
           } case 'message': {
-            if(event.user != process.env.AUTO_MOD && event.subtype != 'message_changed') {
+            if((event.user != process.env.AUTO_MOD && event.user != process.env.AUTO_MOD_TEST) && event.subtype != 'message_changed') {
               events.anonReport(event.text);
               events.anonResponse(event.user);
             }
