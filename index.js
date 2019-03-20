@@ -77,7 +77,7 @@ app.post('/events', (req, res) => {
             events.newChannel(event.channel.name);
             if (utils.isDuplicateChannel(event.channel.name)){
               events.notifyUserDuplicateChannel(event.channel.name);
-              events.archiveChannel(event.channel.name);
+              events.archiveChannel(event.channel.id);
               events.notifyAdminsDuplicateChannel(event.channel.name);
             }
             break;
