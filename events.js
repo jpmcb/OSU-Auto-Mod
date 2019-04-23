@@ -143,7 +143,7 @@ const emoji = (event) => {
 
 // Node cron job to execute late at night in the instance that 
 // there are un-worked jobs in the buffer
-const job = schedule.scheduleJob('* * 3 * * *', () => {
+const job = schedule.scheduleJob('0 3 * * *', () => {
   if(scheduledJobs.length != 0) {
     console.log("Releasing emojis from scheduler!")
     releaseEmojis()
