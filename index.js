@@ -30,9 +30,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   switch (req.body.type) {
     case 'url_verification': {
-      // verifies API endpoint 
-      console.log(req.body);
-      res.send({ challenge: req.body.challenge });
+      res.status(200).send({ challenge: req.body.challenge });
       break;
     }
   }
@@ -42,7 +40,7 @@ app.post('/', (req, res) => {
 app.post('/slash', (req, res) => {
   
   // Only admins in the admin channel can release emojis
-  if(req.body.channel_id == process.env.ADMINS || req.body.channel_id == process.env.ADMINS_TEST){
+  if(req.body.channel_id == process.env.ADMINS){
     res.status(200).json({
       text: "Ok! I've released the current emoji meta to #emoji_meta"
     });
@@ -63,7 +61,7 @@ app.post('/events', (req, res) => {
   switch (req.body.type) {
     case 'url_verification': {
       // verifies events API endpoint 
-      res.send({ challenge: req.body.challenge });
+      res.status(200).send({ challenge: req.body.challenge });
       break;
     }
     case 'event_callback': {
@@ -100,3 +98,5 @@ app.post('/events', (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
 });
+
+module.exports = app
