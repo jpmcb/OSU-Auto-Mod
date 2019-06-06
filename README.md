@@ -54,6 +54,19 @@ _*you may need to create your own development slack workspace!*_ This would requ
 ##### Local development roadmap
 In the future, all contributors will be required to have their own development slack workspaces. As the project grows, we will begin to use the OSU-Auto-Mod slack as a "production test" envrionment before pushing up changes to the bot in the actual "production" enviroment (aka, the OSU Post Bacc slack).
 
+###### Deployment
+
+There are many options for deploying the bot.
+The main thing to get correct are the environment variables
+and the `ENV` setting that this will run.
+If you are running this on the official slack, 
+the variable must be set to `PROD`. 
+
+Once the `.env` file has been configured,
+simply run the node app in a VM instance,
+on an App Engine, or at home! Make sure that port 8080
+is exposed and reachable and then configure your production slack to use the public facing IP / domain.  
+
 ## Community guidelines
 ___
 All contributors must follow the OSU student code of conduct 
